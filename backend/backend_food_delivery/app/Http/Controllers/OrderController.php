@@ -23,8 +23,8 @@ class OrderController extends Controller
     {
         $request->validate(
             [
-                'user_id' => 'required|string|exists:users,id',
-                'restaurant_id' => 'required|string|exists:restaurants,id',
+                'user_id' => 'required|numeric|exists:users,id',
+                'restaurant_id' => 'required|numeric|exists:restaurants,id',
                 'total_price' => 'required|numeric',
                 'status' => 'required|string'
             ]
@@ -35,13 +35,6 @@ class OrderController extends Controller
             'restaurant_id' => $request->restaurant_id,
             'total_price' => $request->total_price,
             'status' => $request->status
-        ]);
-
-        $orderItem = OrderItem::create([
-            'order_id' => $request->order_id,
-            'item_id' => $request->item_id,
-            'quantity' => $request->quantity,
-            'price' => $request->price,
         ]);
 
 

@@ -209,7 +209,19 @@ class _PaymentPageState extends State<PaymentPage> {
                   setState(() {
                     isLoading = false;
                   });
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Congratspage(menuList: widget.menuList, order: orderI!.orders!)));
+                  if (orderI?.orders != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Congratspage(
+                          menuList: widget.menuList,
+                          order: orderI!.orders!,
+                        ),
+                      ),
+                    );
+                  } else {
+                    print("Error: orderI.orders is null");
+}
                 } catch (e) {
                   print("Error: $e");
                 }

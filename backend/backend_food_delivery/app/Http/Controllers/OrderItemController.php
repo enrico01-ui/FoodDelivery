@@ -35,8 +35,8 @@ class OrderItemController extends Controller
     {
         $request->validate(
             [
-                'order_id' => 'required|string|exists:orders,id',
-                'item_id' => 'required|string|exists:menus,item_id',
+                'order_id' => 'required|integer|exists:orders,id',
+                'item_id' => 'required|integer|exists:menus,item_id',
                 'quantity' => 'required|integer',
                 'price' => 'required|numeric',
             ]
@@ -57,24 +57,20 @@ class OrderItemController extends Controller
 
     public function show(Request $request)
     {
-        $request->validate(
-            [
-                'order_id' => 'required|string|exists:orders,id',
-                'item_id' => 'required|string|exists:menus,item_id',
-            ]
-        );
-
-        $orderItem = OrderItem::with(['menu', 'order'])
-                        ->where('order_id', 'like', '%' . $request->order_id . '%')
-                        ->where('item_id', 'like', '%' . $request->item_id . '%')
-                        ->first();
+        $request->validate([
+            'order_id' => 'required|integer|exists:orders,id',
+        ]);
+    
+        $orderItem = OrderItem::with(['menu.restaurant', 'order'])
+            ->where('order_id', $request->order_id)
+            ->first();
         
-        if($orderItem){
+        if ($orderItem) {
             return response()->json([
                 'message' => 'Order Item Found',
                 'data' => $orderItem
-            ]);
-        }else{
+            ], 200);
+        } else {
             return response()->json([
                 'message' => 'Order Item Not Found',
             ], 404);

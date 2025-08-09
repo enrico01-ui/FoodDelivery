@@ -11,7 +11,7 @@ class Restaurantclient {
     const String endpoint = 'api/restaurant';
     try {
       final response = await http.get(
-        Uri.http(baseUrl, endpoint),
+        Uri.https(baseUrl, endpoint),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',

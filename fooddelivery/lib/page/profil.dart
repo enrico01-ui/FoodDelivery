@@ -24,7 +24,7 @@ class _ProfilPageState extends ConsumerState<ProfilPage> with WidgetsBindingObse
   late bool loading;
 
   getEmail(String token, String? name) async {
-    var url = Uri.http(baseIp, 'api/getDataUser');
+    var url = Uri.https(baseIp, 'api/getDataUser');
     var data = jsonEncode({'name': name});
     var response = await http.post(
       url,
@@ -77,7 +77,7 @@ class _ProfilPageState extends ConsumerState<ProfilPage> with WidgetsBindingObse
 
   Future<Map<String, dynamic>> getProfil(String token, String email) async{
     var endpoint = 'api/profil';
-    var url = Uri.http(baseIp, endpoint);
+    var url = Uri.https(baseIp, endpoint);
     var data = jsonEncode({'email': email});
     final response = await http.post(
       url, 

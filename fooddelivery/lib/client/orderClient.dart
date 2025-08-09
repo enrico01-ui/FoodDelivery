@@ -13,7 +13,7 @@ class Orderclient {
     const String endpointOrder = 'api/order';
     try {
       final response = await http.post(
-        Uri.http(baseUrl, endpointOrder),
+        Uri.https(baseUrl, endpointOrder),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -24,7 +24,7 @@ class Orderclient {
         return http.Response('Error', 408);
       });
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         // Assuming that 'data' contains the order object in the response
         return Order.fromJson(jsonDecode(response.body)['data']);
       } else {
@@ -41,7 +41,7 @@ class Orderclient {
 
     try{
       final response = await http.post(
-        Uri.http(baseUrl, endpoint),
+        Uri.https(baseUrl, endpoint),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -51,7 +51,7 @@ class Orderclient {
       ).timeout(const Duration(seconds: 20), onTimeout: () {
         return http.Response('Error', 408);
       });
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         return OrderItem.fromJson(jsonDecode(response.body)['data']);
       } else {
         print('Error ${response.statusCode}: ${response.body}');
@@ -67,7 +67,7 @@ class Orderclient {
     const String endpoint = 'api/order/show';
     try {
       final response = await http.post(
-        Uri.http(baseUrl, endpoint),
+        Uri.https(baseUrl, endpoint),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -100,7 +100,7 @@ class Orderclient {
     const String endpoint = 'api/order/update';
     try{
       final response = await http.put(
-        Uri.http(baseUrl, endpoint),
+        Uri.https(baseUrl, endpoint),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -124,30 +124,42 @@ class Orderclient {
     const String endpoint = 'api/orderItem/show';
     try {
       final response = await http.post(
-        Uri.http(baseUrl, endpoint),
+        Uri.https(baseUrl, endpoint),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Authorization': 'Bearer $token',
         },
-        body: jsonEncode({'order_id': orderId}),
+        body: jsonEncode({'order_id': int.parse(orderId)}),
       );
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body)['data'];
-        print('Response Data: $data');
+        print('Response Data Order Item: $data');
         List<OrderItem> orderItems = [];
-        for (var i in data) {
-          if(i['menu'] == null){
-            print("Menu is null");
+        if(data is List) {
+          for (var i in data) {
+            if(i['menu'] == null){
+              print("Menu is null");
+            }
+            if(i['order'] == null){
+              print("Order is null");
+            }
+            orderItems.add(OrderItem.fromJson(i));
           }
-          if(i['order'] == null){
-            print("Order is null");
+          for(var i in orderItems){
+            print("OrderItem: ${i.item_id}");
           }
-          orderItems.add(OrderItem.fromJson(i));
-        }
-        for(var i in orderItems){
-          print("OrderItem: ${i.item_id}");
+          
+        } else if (data is Map<String, dynamic>) {
+          
+          if (data['menu'] == null) print("Menu is null");
+          if (data['order'] == null) print("Order is null");
+          orderItems.add(OrderItem.fromJson(data));
+          print("Single OrderItem: ${data['item_id']}");
+          
+        }else {
+          print("Data format tidak dikenal");
         }
         return orderItems;
       } else {
@@ -160,7 +172,7 @@ class Orderclient {
   static Future<String> deleteOrder(String token, String id) async{
     const String endpoint = 'api/order/delete';
     try{
-      final response = await http.delete(Uri.http(baseUrl, endpoint),
+      final response = await http.delete(Uri.https(baseUrl, endpoint),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',

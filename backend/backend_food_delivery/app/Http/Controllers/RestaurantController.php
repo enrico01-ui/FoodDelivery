@@ -9,9 +9,10 @@ class RestaurantController extends Controller
 {
     public function index()
     {
-        $restaurant = Restaurant::all();
+        $restaurants = Restaurant::all();
         return response()->json($restaurants->map(function ($restaurant) {
             return [
+                'id' => $restaurant->id,
                 'name' => $restaurant->name,
                 'address' => $restaurant->address,
                 'phone_number' => $restaurant->phone_number,

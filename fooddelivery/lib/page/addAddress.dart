@@ -26,7 +26,7 @@ class _AddAddressState extends State<AddAddress> {
   Future<void> updateProfil(String token, String email, String telp, String address) async{
     String endpoint = 'api/profil/update';
     try{
-      final response = await http.put(Uri.http(baseIp, endpoint),
+      final response = await http.put(Uri.https(baseIp, endpoint),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',

@@ -10,7 +10,7 @@ class Menuclient {
   static Future<List<Menu>> getMenus(String token) async{
     const String endpoint = 'api/menu';
     try{
-      final response = await http.get(Uri.http(baseUrl, endpoint),
+      final response = await http.get(Uri.https(baseUrl, endpoint),
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',

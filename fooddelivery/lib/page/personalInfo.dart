@@ -24,7 +24,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   Future<Profil> updateProfil(String token, Profil profil, String name) async {
     const String endpoint = 'api/profil/update';
     try{
-      final response = await http.put(Uri.http(baseIp, endpoint), 
+      final response = await http.put(Uri.https(baseIp, endpoint), 
       headers:
       {
         'Content-Type': 'application/json',

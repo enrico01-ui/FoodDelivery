@@ -18,7 +18,6 @@ final orderProvider = FutureProvider<List<Order>>((ref) async {
 
 final orderItemProvider = FutureProvider.family<List<OrderItem>, String>((ref, orderId) async {
         final token = await Storage.readSecureData('personalToken');
-        final id = await Storage.readSecureData('id');
 
         return await Orderclient.fetchOrderItem(token!, orderId);
       }); 

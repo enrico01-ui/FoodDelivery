@@ -49,7 +49,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
 
   getEmail(String token, String? name) async {
-    var url = Uri.http(baseIp, 'api/getDataUser');
+    var url = Uri.https(baseIp, 'api/getDataUser');
     var data = jsonEncode({'name': name});
     var response = await http.post(
       url,
@@ -68,7 +68,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     try {
       String? username = await Storage.readSecureData('name');
       token = await Storage.readSecureData('personalToken') ?? 'empty';
-      
+      print("Token: $token");
       if (token != "empty") {
         await _fetchUserProfile(token, username);
         setState(() {}); // Trigger a UI update
@@ -87,7 +87,9 @@ class _HomePageState extends ConsumerState<HomePage> {
       String email = data['email'];
 
       final profilData = await getProfil(token, email).timeout(const Duration(seconds: 30));
+      print("Profil Data: $profilData");
       profil = Profil.fromJson(profilData);
+      print("Profil: ${profil!.user.name}");
     } on TimeoutException catch (_) {
       token = null;
       
@@ -102,7 +104,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   Future<Map<String, dynamic>> getProfil(String token, String email) async{
     var endpoint = 'api/profil';
-    var url = Uri.http(baseIp, endpoint);
+    var url = Uri.https(baseIp, endpoint);
     var data = jsonEncode({'email': email});
     final response = await http.post(
       url, 

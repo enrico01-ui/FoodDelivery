@@ -13,6 +13,7 @@ class Profil extends Model
         'email',
         'bio',
         'image',
+        'no_telp',
         'address'
     ];
 

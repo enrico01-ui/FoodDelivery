@@ -1,0 +1,2 @@
+C:/Users/Acer/Downloads/FoodDelivery/fooddelivery/android/app/.cxx/Debug/5j5x2y81/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/Acer/Downloads/FoodDelivery/fooddelivery/android/app/.cxx/Debug/5j5x2y81/armeabi-v7a/CMakeFiles/rebuild_cache.dir

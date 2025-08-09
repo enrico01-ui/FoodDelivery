@@ -27,6 +27,7 @@ class UserController extends Controller
                 'email' => 'required|string',
                 'password' => 'required|string',
                 'image' => 'nullable|string',
+                'no_telp' => 'required|string',
                 'address' => 'required|string',
             ]
         );
@@ -46,6 +47,7 @@ class UserController extends Controller
             'email' => $request->email,  // User email
             'bio' => 'Hello, I am a new user',  // Use provided bio or default if empty
             'image' => $this->getGravatarUrl($request->email),
+            'no_telp' => $request->no_telp,
             'address' => $request->address,
         ];
 

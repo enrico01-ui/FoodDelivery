@@ -12,11 +12,15 @@ class Restaurant extends Model
     protected $table = "restaurants";
 
     protected $fillable = [
+        'id',
         'name',
         'address',
+        'description',
         'phone_number',
         'rating',
         'logo_url',
+        'open_time',
+        'close_time'
     ];
 
 }

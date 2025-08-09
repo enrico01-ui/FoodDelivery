@@ -74,7 +74,7 @@ class _MapPageState extends State<MapPage> {
 
   Future<Map<String, dynamic>> getProfil(String token, String email) async{
     var endpoint = 'api/profil';
-    var url = Uri.http(baseIp, endpoint);
+    var url = Uri.https(baseIp, endpoint);
     var data = jsonEncode({'email': email});
     final response = await http.post(
       url, 
@@ -92,7 +92,7 @@ class _MapPageState extends State<MapPage> {
 
   final sheet = GlobalKey();
   List<Marker> markers = [];
-  final LatLng source = const LatLng(-7.7918, 110.3931);
+  final LatLng source = const LatLng(-7.792077, 110.389406);
   LatLng? destination;
   late BitmapDescriptor carIcon;
   LocationData? currentLocation;
@@ -346,8 +346,20 @@ class _MapPageState extends State<MapPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(widget.menu!.first.restaurant.name, style: const TextStyle(fontSize: 18.0, fontFamily: "Sen", fontWeight: FontWeight.bold)),
-                                    Text(widget.menu!.first.restaurant.address, style: const TextStyle(fontSize: 16.0, fontFamily: "Sen", fontWeight: FontWeight.w400)),
-                                    Text('${widget.menu!.length} items', style: const TextStyle(fontSize: 16.0, fontFamily: "Sen", fontWeight: FontWeight.w400)),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width - 120, 
+                                      child: Text(
+                                        widget.menu!.first.restaurant.address,
+                                        style: const TextStyle(
+                                          fontSize: 16.0,
+                                          fontFamily: "Sen",
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    Text('${widget.menu!.length} items', style: const TextStyle(fontSize: 16.0, fontFamily: "Sen", fontWeight: FontWeight.bold)),
                                   ],
                                 )
                               ],

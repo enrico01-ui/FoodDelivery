@@ -9,7 +9,7 @@ import 'package:fooddelivery/util/storage.dart';
 Future<Map<String, dynamic>> login(String email, String password) async {
   const String endpoint = 'api/login';
   try{
-    final response = await http.post(Uri.http(baseIp, endpoint),
+    final response = await http.post(Uri.https(baseIp, endpoint),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -36,7 +36,7 @@ Future<Map<String, dynamic>> login(String email, String password) async {
 Future<Map<String, dynamic>> Register(String name, String email, String password, String noTelp) async {
   const String endpoint = 'api/register';
   try{
-    final response = await http.post(Uri.http(baseIp, endpoint),
+    final response = await http.post(Uri.https(baseIp, endpoint),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',

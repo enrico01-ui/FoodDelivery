@@ -98,7 +98,7 @@ class _FoodDetailState extends State<FoodDetail> {
 
   Future<Map<String, dynamic>> getProfil(String token, String email) async{
     var endpoint = 'api/profil';
-    var url = Uri.http(baseIp, endpoint);
+    var url = Uri.https(baseIp, endpoint);
     var data = jsonEncode({'email': email});
     final response = await http.post(
       url, 

@@ -9,7 +9,7 @@ class MenuController extends Controller
 {
     public function index()
     {
-        $menu = Menu::all();
+        $menu = Menu::with('restaurant')->get();
 
         return response()->json($menu);
     }
